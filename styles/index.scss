@@ -1,0 +1,25 @@
+.body{
+	background-color: orange;
+	
+}
+
+.body__text{
+	margin-top: 20%;
+	font-size: 50px;
+	text-align: center;
+	height: 200px;
+	position: absolute;
+	&:hover{
+		color: $color;
+	}
+}
+
+.option{
+	margin-top: 100%;
+	&__navegation{
+		font-size: 40px;
+		&:hover{
+			color: $color;
+		}
+	}
+}
