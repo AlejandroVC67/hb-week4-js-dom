@@ -1,0 +1,149 @@
+build del package kson:
+    start:  npm run all este paquete deja correr tareas de manera mas conveniente, en este caso todas las tareas que haya hehco
+    por copy y luego corre build:css y luego empieza en paralelo los watch(html, js,css) y luego el serve
+
+    watch: verifica si cambian los archivos y si ese es el caso los copia
+
+    start-build: copia todo los archivos de html y css y luego monta el servidor, gracias al serve
+
+    clean: este borra todo lo que hay en la carpeta public 
+
+    build: buildea todo, luego lo lintea(css, js) el js lo hace con standard js y luego en paralelo buildea el css 
+    y ejecuta el comando copy
+
+    que es standard js?
+        checkea que el js este bien escrito, que variables usaste, o que espacios demas estan
+        para que funcine en el code busco la extesion js standard style
+    como se usa?
+        standard 'src/xx/x.js' -- --fix
+        o con npm run lint:js -- --fix
+    
+
+    desde ahora en adelante tratar de no tener archivos en la carpeta public pues estos se construyen en el momento
+
+
+SCSS
+    hacer archivo base, en este se guarda todo lo que sea atributos a los tags
+
+
+js
+    en los html debo hacer script type=module 
+
+    IIFE 
+    (function ) (){
+
+    }();
+--------------------------
+
+    obj ={
+        a:1,
+        b:2
+    }
+    antes:
+    const a = obj.a
+    const b = obj.b
+
+    ahora:
+    const {a,b} = obj; 
+
+    con arrays:
+    [1,2,3,4,5]
+    antes:
+    const arr1 = arr[0];
+    const arr2 = arr[1];
+
+    Ahora:
+    const[x,y,z...] = [1,2,3,4,5]
+------------------------------------ 
+    IMPORTS Y EXPORTS JS
+
+    crear un archivo main.js
+    import {Gallery} from '.gallery/gallery.js'; esto se llama name import
+    import data from '.gallery/gallery.js'; esto es default import
+    
+    new Gallery(document.querySelector('.gallery'),data)
+
+    para que se mueva con las flechas del teclado, necesito ponerle tabindex = 0 al contenedor que tiene las img adentro
+
+    los dots se deben hacer con botones
+
+    los arrows no deberian ser imagenes, deberian manejarse con background after o before
+
+    hay que hacer una clase para que los puntos esten sleccionados, como que cambie el color o algo y que en i le ponga
+    esa clase
+
+    es mejor tener todas apagas y luego prenderlas, es decir, todas con opacity y quitarlas al que toque
+
+    hay que validar que el cont no sea menor a cero y que no se pase de la longitud, ademas de que no sea el mismo
+    si todas esas condiciones se cumplen les quito las clases de seleccionado al punto y a la image, actualizo el cont
+    con este busco la nueva imagen y ahora a este punto e imagen le pongo la clase de seleccionado
+    y luego actualizar el estado de las flechas
+
+
+    delegar eventos: en vez de recorrer todos los elementos y a cada uno hacerle un addEventListener
+    se le pone ese evento al padre y le pongo el evento, pero esto implica que debo hacer una funcion que valide
+    la clase con un contains si es la clase de alguno de los hijos, ejemplo las arrows, tambien sirve a los nods
+
+    para las flechas de los keyboards, debo verificar si es ArrowLeft o ArrowRight 
+
+--------------------------------------
+como saber el valor del this en una funcion?
+1. new
+2.explicit binding or hard binding (call, apply,bind)
+3. imlicit binding rule (base on who is calling the function)
+4. default rule (global out of strict-mode)
+    
+    
+    function saludar (){
+        this.name = 'andres'
+    }
+    saludar();
+    COMO NO APLICA NINGUNA DE LAS ANTERIORES ESE THIS ES DE WINDOW
+----------------------------------------------------------------------------
+
+    function saludar (){
+        this.name = 'andres'
+        console.log(this.name)
+        console.log(this.a)
+    }
+    saludar();
+
+    const obj = {
+        a: '1',
+        b: saludar
+    };
+
+    obj.b();
+    ACA APLICA LA SEGUNDA REGLA, ESTE THIS ES EL obj = {
+        ....
+    }
+----------------------------------------------------------------------------
+    function saludar (){
+        this.name = 'andres'
+        console.log(this.name)
+        console.log(this.a)
+    }
+const s2 = saludar.bind({})()
+
+saludar(1,2,3)
+saludar.call({},1,2,3) este es lo mismo que ejecutar la function pero el primer valor es el del this 
+saludar.apply({}, [1,2,3]) es igual que el call pero en este se tiene un arreglo con el valor 
+
+----------------------------------------------------------------------------
+new se usa cuando quiero un objeto de vuelta
+const a = new saludar(); //esto retornaria  {name:andres}
+
+    function saludar (){
+        //let this = {} LA CREA EL CODIGO SOLO
+        this.name = 'andres'
+        console.log(this.name)
+        console.log(this.a)
+        //return this LA CREA EL CODIGO SOLO
+    }
+
+
+
+
+
+
+
