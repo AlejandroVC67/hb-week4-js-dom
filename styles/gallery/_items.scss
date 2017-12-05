@@ -4,7 +4,6 @@
 
 
 .opacity{
-	
 	opacity: 0;
 }
 
@@ -13,4 +12,10 @@
 	height: 100%;
 	object-fit: cover;
 	position: absolute;
+	&--enable{
+		opacity: 1;
+	}
+	&--disable{
+		opacity: 0;
+	}
 }

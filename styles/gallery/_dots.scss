@@ -1,1 +1,14 @@
-$a: 1;
+.dots{
+	position: absolute;
+	left: 39vw;
+	z-index: 1;
+	bottom: 0;
+	&__style{
+		width: 10px;
+		height: 10px;
+		border: 10px;
+	}
+	&__selected{
+		color:aquamarine;
+	}
+}

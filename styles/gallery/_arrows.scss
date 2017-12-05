@@ -13,6 +13,12 @@
 	&__right{
     right: 0;
 	}
+	&--disable{
+		opacity: 0;
+	}
+	&--enable{
+		opacity: 1;
+	}
 }
 
 

@@ -9,14 +9,24 @@
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <body>
-	<div class="gallery-container">
+	<div class="gallery-container" tabindex="0">
 		<!-- <img class="opacity" src="../resources/nature1.jpg" alt="Road foto"> -->
 		<div class="arrows ">
-			<img class="arrows__left arrow-modifier position" src="../resources/arrow-left.svg" alt="arrow pointing to the left">
-			<img class="arrows__right arrow-modifier position" src="../resources/arrow-right.svg" alt="arrow pointing to the right">
+			<button>
+				<img class="arrows__left arrow-modifier position" src="../resources/arrow-left.svg" alt="arrow pointing to the left">
+			</button>
+			<button>
+				<img class="arrows__right arrow-modifier position" src="../resources/arrow-right.svg" alt="arrow pointing to the right">
+			</button>
 		</div>
+
+		<li class="dots">
+			<button class="dots__style" ></button>
+			<button class="dots__style"></button>
+			<button class="dots__style"></button>			
+		</li>
 		<!-- <div class="dots"></div> -->
 	</div>
-	<script src="../js/main.js"></script>		
+	<script src="../js/gallery.js"></script>		
 </body>
 </html>
