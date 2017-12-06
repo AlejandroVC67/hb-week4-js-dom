@@ -28,12 +28,12 @@ export class Gallery {
   }
 
   createElements () {
-    this.elements.dots = this.instance.querySelector('.dots-list')
     console.log(this.elements.dots)
     this.data.map(element => {
       this.instance.innerHTML += Gallery.contentStructure.imgs.replace('{src}', element.url)
     })
-    this.elements.dots.innerHTML += Gallery.contentStructure.dot
+    this.instance.querySelector('.dots-list').innerHTML += Gallery.contentStructure.dot
+    this.elements.dots = this.instance.querySelector('.dots-list')
     this.elements.imgs = this.instance.querySelectorAll('.img')
     this.elements.imgs[0].classList.add('img--enable')
     // let imgs = []
