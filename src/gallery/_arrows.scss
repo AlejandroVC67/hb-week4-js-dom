@@ -1,8 +1,12 @@
-.arrow-modifier{
+.arrow{
 	width: 20%;
+	opacity: 0;
+	&--enable{
+		opacity: 1;
+	}
 }
 
-.arrows{
+.arrows-container{
 	margin-top:42vh;
 	width: 100%;
 	z-index: 1;
@@ -13,12 +17,7 @@
 	&__right{
     right: 0;
 	}
-	&--disable{
-		opacity: 0;
-	}
-	&--enable{
-		opacity: 1;
-	}
+
 }
 
 

@@ -9,6 +9,8 @@
   },
   "devDependencies": {
     "copy": "^0.3.1",
+    "copyfiles": "^1.2.0",
+    "http-server": "^0.10.0",
     "husky": "^0.14.3",
     "node-sass": "^4.7.2",
     "npm-run-all": "^4.1.2",
@@ -31,11 +33,15 @@
     "watch:js": "onchange 'src/**/*.js' -- npm-run-all lint:js copy:js",
     "copy:html": "copy 'src/**/*.html' public",
     "copy:js": "copy 'src/**/*.js' public",
+    "cp:html": "copyfiles -u 1 src/**/*.html public",
+    "cp:js": "copyfiles -u 1 src/**/*.js public",
+    "cp:source": "copyfiles -u 1 src/**/*.svg public",
     "copy:source": "copy 'src/**/*.svg' public",
     "precommit": "npm run lint",
     "clean": "rm -rf public/",
     "start:build": "npm-run-all build serve",
-    "start": "npm-run-all copy:** build:css --parallel watch:** serve"
+    "start": "npm-run-all copy:** build:css --parallel watch:** serve",
+    "start:windows": "npm-run-all cp:** build:css --parallel watch:** serve"
   },
   "repository": {
     "type": "git",

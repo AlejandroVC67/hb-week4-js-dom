@@ -5,87 +5,102 @@ export class Gallery {
     this.cont = 0
     this.instance = instance
     this.elements = {}
-    initVariables()
-    loadImages()
-    arrowsControl()
-    galleryMovement()
+    this.initVariables()
+    this.createContent()
+    this.arrowsControl()
+    // galleryMovement()
   }
 
   initVariables () {
-    this.elements.container = document.querySelector('.gallery-container')
-    this.elements.arrows = document.querySelectorAll('.arrow-modifier')
-    this.elements.images = document.querySelectorAll('.img')
-    this.elements.btns = document.querySelectorAll('button')
+    this.elements.container = this.instance
+    // this.elements.dots = this.elements.container.querySelectorAll('.dots')
+    this.elements.btns = this.instance.querySelectorAll('button')
+    // console.log(this.elements.dots)
+    // console.log(this.elements.btns)
+    this.elements.arrows = this.instance.querySelectorAll('.arrow')
+    console.log(this.elements.arrows)
+    // this.elements.images = this.node.querySelectorAll('.img')
+    // this.elements.btns = this.node.querySelectorAll('button')
   }
 
-   loadImages () {
-    // variables declaration
-    this.elements.images.img = document.createElement('img')
-    this.elements.images.img2 = document.createElement('img')
-    this.elements.images.img3 = document.createElement('img')
-
-    // img src
-    img.setAttribute('src', url[1])
-    img2.setAttribute('src', url[0])
-    img3.setAttribute('src', url[2])
-
-    // adding respective class
-    img.classList.add('img')
-    img.classList.add('img--active')
-    img2.classList.add('img')
-    img3.classList.add('img')
-
-    // appending to container
-    this.elements.container.appendChild(img)
-    container.appendChild(img2)
-    container.appendChild(img3)
+  createContent () {
+    let imgs = []
+    let dots = []
+    for (let i = 0; i < this.url.length; i++) {
+      dots[i] = `<button class="dots__style"</button> \n`
+      imgs[i] = `<img class="img" src="${this.url[i].url}"</img>`
+      this.elements.container.querySelector('.dots').innerHTML += dots[i]
+      this.elements.container.innerHTML += imgs[i]
+    }
+    this.elements.container.querySelector('.img').classList.add('img--enable')
+    this.elements.container.querySelector('.dots__style').classList.add('dots--selected')
   }
 
-  createImages () {
-    for(let i = 0 ; i < 3; i++){
-        let x = `<img class="img" src="${url[i]}" </img> `; 
+  arrowsControl () {
+    console.log('arrowsControl begins')
+    let imgs = this.elements.container.querySelectorAll('.img')
+    // let arrows = this.elements.container.querySelectorAll('.arrow')
+    let firstImage = imgs[0]
+    let lastImage = imgs[imgs.length - 1]
+    // console.log(firstImage)
+    // console.log(lastImage)
+    if (firstImage.classList.contains('img--enable')) {
+      this.elements.container.querySelectorAll('.arrow')[1].classList.add('arrow--enable')
+      // arrows[1].classList.add('arrow--enable')
+      console.log('debería entrar acá')
+    } else if (lastImage.classList.contains('img--enable')) {
+      console.log('acá no')
+      this.elements.arrows[1].classList.remove('arrow--enable')
+    } else {
+      this.elements.arrows[0].classList.add('arrow--enable')
+      this.elements.arrows[1].classList.add('arrow--enable')
+      console.log('poniendo flechas en to lado')
     }
   }
 
-//   static loadDots () {
-//     let dots
-//     let dotsContainer = ('')
-//     for (let i = 0; i < images.length; i++) {
-//       dots[i] = ('')
-//     }
-//   }
-
-   arrowsControl () {
-    this.elements.images = document.querySelectorAll('.img')  
-    for (let i = 0; i < images.length; i++) {
-      if (images[0].classList.contains('img--active') === true) {
-        arrows[0].classList.add('arrows--disable')
-        arrows[1].classList.remove('arrows-diseable')
-      } else if (images[images.length - 1].classList.contains('img--active') === true) {
-        arrows[1].classList.add('arrows--disable')
-        arrows[0].classList.remove('arrow-enable')
-      } 
-    }
+  galleryMovement () {
+    arrowsMovement()
+    dotsMovement()
   }
 
-   galleryMovement () {
-    for (let i = 0; i < btns.length; i++) {
-       btns[i].addEventListener('click', function () {
-        if (arrows[i].classList.contains('arrows__left')) {
-          cont--
-          // hideImages();
-          showImage(cont)
-        } else {
-          cont++
-          showImage(cont)
-        }
-      })
-    }
+  arrowsMovement () {
+
   }
 
-   showImage (cont) {
-    for (let j = 0; j < images.length; j++) {
-      images[cont].classList.add('img--enable')
-    }
+  dotsMovement() {
+    
   }
+  // arrowsControl () {
+  //   let imgs = this.elements.images = this.node.document.querySelectorAll('.img')  
+  //   for (let i = 0; i < imgs.length; i++) {
+  //     if (imgs[0].classList.contains('img--active') === true) {
+  //       arrows[0].classList.add('arrows--disable')
+  //       arrows[1].classList.remove('arrows-diseable')
+  //     } else if (images[images.length - 1].classList.contains('img--active') === true) {
+  //       arrows[1].classList.add('arrows--disable')
+  //       arrows[0].classList.remove('arrow-enable')
+  //     } 
+  //   }
+  // }
+
+  //  galleryMovement () {
+  //   for (let i = 0; i < btns.length; i++) {
+  //      btns[i].addEventListener('click', function () {
+  //       if (arrows[i].classList.contains('arrows__left')) {
+  //         cont--
+  //         // hideImages();
+  //         showImage(cont)
+  //       } else {
+  //         cont++
+  //         showImage(cont)
+  //       }
+  //     })
+  //   }
+  // }
+
+  //  showImage (cont) {
+  //   for (let j = 0; j < images.length; j++) {
+  //     images[cont].classList.add('img--enable')
+  //   }
+  // }
 }
