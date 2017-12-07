@@ -4,42 +4,42 @@ export class Gallery {
     this.cont = 0
     this.instance = instance
     this.elements = {}
-    this.createImages()
-    // this.createDots()
+    this.elements.imgContainer = this.instance.querySelector('.img-container')
+    this.createImages(this.elements.imgContainer)
+    this.elements.dots = this.instance.querySelector('.dots-list')
+    this.createDots(this.elements.dots)
     this.elements.arrows = this.instance.querySelectorAll('.arrow')
+    this.elements.navegators = this.instance.querySelectorAll('[data-use]')
     this.controlArrows(this.elements.imgs, this.elements.arrows)
-    this.setArrowMovement(this.elements.arrows)
+    // console.log(this.elements.dots)
+    this.setGalleryMovement(this.elements.navegators)
   }
 
   static get contentStructure () {
     return {
-      dot: ` <li class="dots"> <button class="dots__style"></button> </li>`,
+      dot: ` <li class="dots"> <button data-use='navegation' class="dots__style"></button> </li>`,
       imgs: `<img class="img" alt="a image of nature" src="{src}" ></img>`
     }
   }
 
-  createImages () {
-    this.data.map(element => {
-      this.instance.innerHTML += Gallery.contentStructure.imgs.replace('{src}', element.url)
+  createImages (imgContainer) {
+    let imgArray = this.data.map(element => {
+      return Gallery.contentStructure.imgs.replace('{src}', element.url)
     })
-    this.instance.querySelector('.dots-list').innerHTML += Gallery.contentStructure.dot
-    this.elements.dots = this.instance.querySelector('.dots-list')
+    imgContainer.innerHTML = imgArray.join('')
     this.elements.imgs = this.instance.querySelectorAll('.img')
     // console.log(this.elements.imgs)
     this.elements.imgs[0].classList.add('img--enable')
-    // let imgs = []
-    // let dots = []
-    // for (let i = 0; i < this.data.length; i++) {
-    //   dots[i] = `<button class="dots__style"></button>`
-    //   imgs[i] = `<img class="img" src="${this.url[i].url}"></img>`
-    //   console.log('hola1', this.elements.dots.innerHTML)
-    //   this.elements.dots.innerHTML += dots[i]
-    //   console.log('hola2', this.elements.dots.innerHTML)
-    //   console.log(this.elements.dots)
-    //   console.log(document.querySelector('.dots'))
-    //   this.elements.container.innerHTML += imgs[i]
-    // }
-    // this.elements.container.querySelector('.img').classList.add('img--enable')
+  }
+
+  createDots (dotsContainer) {
+    let dotsArray = this.data.map(element => {
+      return Gallery.contentStructure.dot
+    })
+    dotsContainer.innerHTML = dotsArray.join('')
+    this.elements.dotBtn = this.instance.querySelectorAll('.dots__style')
+    console.log(this.elements.dotBtn)
+    this.elements.dotBtn[0].classList.add('dots--selected')
   }
 
   controlArrows (imgs, arrows) {
@@ -55,75 +55,36 @@ export class Gallery {
     }
   }
 
-  setArrowMovement (arrows) {
-    console.log(arrows)
-    arrows.addEventListener('click', function (event) {
-      const element = event.currentTarget
-      if (element.classList.contains('arrows-container__left')) {
-        this.cont--
-        this.revealPreviousImage(this.cont)
-      } else if (element.classList.contains('arrows-container__right')) {
-        this.cont++
-        console.log(this.cont)
-        this.revealNextImage(this.cont)
-      }
-    })
+  setGalleryMovement (navegators) {
+    console.log(this.cont)
+    // const minCont = this.cont === 0
+    // const maxCont = this.cont === this.elements.imgs.length - 1
+    // console.log(minCont, maxCont)
+    console.log(navegators)
+    for (let i = 0; i < navegators.length; i++) {
+      navegators[i].addEventListener('click', this.changeImages)
+    }
+  }
+  changeImages (event) {
+    const element = event.currentTarget
+    if (element.classList.contains('arrows-container__left')) {
+      this.revealPreviousImage(this.cont)
+    } else if (element.classList.contains('arrows-container__right')) {
+      console.log(this.cont)
+      this.revealNextImage(this.cont)
+      this.cont++
+    }
   }
 
-  revealPreviousImage (position) {
-    this.elements.imgs[position++].classList.remove('img--enable')
-    this.elements.imgs[position].classList.add('img--enable')
+  revealPreviousImage (newPosition) {
+    this.elements.imgs[newPosition].classList.remove('img--enable')
+    this.elements.imgs[--newPosition].classList.add('img--enable')
+    this.cont--
   }
 
-  revealNextImage (position) {
-    this.elements.imgs[position++].classList.remove('img--enable')
-    this.elements.imgs[position].classList.add('img--enable')
+  revealNextImage (newPosition) {
+    this.elements.imgs[newPosition].classList.remove('img--enable')
+    this.elements.imgs[++newPosition].classList.add('img--enable')
+    // this.cont++
   }
-
-  // galleryMovement () {
-  //   arrowsMovement()
-  //   dotsMovement()
-
-  // }
-
-  // arrowsMovement () {
-
-  // }
-
-  // dotsMovement() {
-
-  // }
-  // arrowsControl () {
-  //  let imgs = this.elements.images = this.node.document.querySelectorAll('.img')
-  //   for (let i = 0; i < imgs.length; i++) {
-  //     if (imgs[0].classList.contains('img--active') === true) {
-  //       arrows[0].classList.add('arrows--disable')
-  //       arrows[1].classList.remove('arrows-diseable')
-  //     } else if (images[images.length - 1].classList.contains('img--active') === true) {
-  //       arrows[1].classList.add('arrows--disable')
-  //       arrows[0].classList.remove('arrow-enable')
-  //     }
-  //   }
-  // }
-
-  //  galleryMovement () {
-  //   for (let i = 0; i < btns.length; i++) {
-  //      btns[i].addEventListener('click', function () {
-  //       if (arrows[i].classList.contains('arrows__left')) {
-  //         cont--
-  //         // hideImages();
-  //         showImage(cont)
-  //       } else {
-  //         cont++
-  //         showImage(cont)
-  //       }
-  //     })
-  //   }
-  // }
-
-  //  showImage (cont) {
-  //   for (let j = 0; j < images.length; j++) {
-  //     images[cont].classList.add('img--enable')
-  //   }
-  // }
 }

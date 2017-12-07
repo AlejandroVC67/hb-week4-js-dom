@@ -1,15 +1,19 @@
 .dots{
-	position: absolute;
-	left: 45vw;
-	z-index: 1;
-	bottom: 0;
 	&__style{
 		width: 10px;
 		height: 10px;
 		border: 10px;
 		margin-left: 10px;
+
 	}
 	&--selected{
 		color:aquamarine;
 	}
+}
+
+.dots-list{
+	position: absolute;
+	z-index: 1;
+	bottom: 0;
+	margin-left: 45vw;
 }
