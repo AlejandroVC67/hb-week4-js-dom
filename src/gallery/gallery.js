@@ -1,40 +1,31 @@
 export class Gallery {
   constructor (instance, data) {
     this.data = data
-    // console.log(this.url)
     this.cont = 0
     this.instance = instance
     this.elements = {}
-    // this.initVariables()
-    this.createElements()
-    // this.arrowsControl()
-    // galleryMovement()
-  }
-
-  initVariables () {
-    this.elements.container = this.instance
-    this.elements.dots = this.elements.container.querySelector('.dots')
-    // console.log(this.elements.dots)
-    this.elements.arrows = Array.from(this.instance.querySelectorAll('.arrow'))
-    // console.log(this.elements.arrows)
-    // this.elements.images = this.node.querySelectorAll('.img')
+    this.createImages()
+    // this.createDots()
+    this.elements.arrows = this.instance.querySelectorAll('.arrow')
+    this.controlArrows(this.elements.imgs, this.elements.arrows)
+    this.setArrowMovement(this.elements.arrows)
   }
 
   static get contentStructure () {
     return {
       dot: ` <li class="dots"> <button class="dots__style"></button> </li>`,
-      imgs: `<img class="img" src="{src}" ></img>`
+      imgs: `<img class="img" alt="a image of nature" src="{src}" ></img>`
     }
   }
 
-  createElements () {
-    console.log(this.elements.dots)
+  createImages () {
     this.data.map(element => {
       this.instance.innerHTML += Gallery.contentStructure.imgs.replace('{src}', element.url)
     })
     this.instance.querySelector('.dots-list').innerHTML += Gallery.contentStructure.dot
     this.elements.dots = this.instance.querySelector('.dots-list')
     this.elements.imgs = this.instance.querySelectorAll('.img')
+    // console.log(this.elements.imgs)
     this.elements.imgs[0].classList.add('img--enable')
     // let imgs = []
     // let dots = []
@@ -51,26 +42,42 @@ export class Gallery {
     // this.elements.container.querySelector('.img').classList.add('img--enable')
   }
 
-  arrowsControl () {
-    // console.log('arrowsControl begins')
-    let imgs = this.elements.container.querySelectorAll('.img')
-    // let arrows = this.elements.container.querySelectorAll('.arrow')
-    let firstImage = imgs[0]
-    let lastImage = imgs[imgs.length - 1]
-    // console.log(firstImage)
-    // console.log(lastImage)
+  controlArrows (imgs, arrows) {
+    const firstImage = imgs[0]
+    const lastImage = imgs[imgs.length - 1]
     if (firstImage.classList.contains('img--enable')) {
-      this.elements.container.querySelectorAll('.arrow')[1].classList.add('arrow--enable')
-      // arrows[1].classList.add('arrow--enable')
-      // console.log('debería entrar acá')
+      arrows[1].classList.add('arrow--enable')
     } else if (lastImage.classList.contains('img--enable')) {
-      // console.log('acá no')
-      this.elements.arrows[1].classList.remove('arrow--enable')
+      arrows[1].classList.remove('arrow--enable')
     } else {
-      this.elements.arrows[0].classList.add('arrow--enable')
-      this.elements.arrows[1].classList.add('arrow--enable')
-      // console.log('poniendo flechas en to lado')
+      arrows[0].classList.add('arrow--enable')
+      arrows[1].classList.add('arrow--enable')
     }
+  }
+
+  setArrowMovement (arrows) {
+    console.log(arrows)
+    arrows.addEventListener('click', function (event) {
+      const element = event.currentTarget
+      if (element.classList.contains('arrows-container__left')) {
+        this.cont--
+        this.revealPreviousImage(this.cont)
+      } else if (element.classList.contains('arrows-container__right')) {
+        this.cont++
+        console.log(this.cont)
+        this.revealNextImage(this.cont)
+      }
+    })
+  }
+
+  revealPreviousImage (position) {
+    this.elements.imgs[position++].classList.remove('img--enable')
+    this.elements.imgs[position].classList.add('img--enable')
+  }
+
+  revealNextImage (position) {
+    this.elements.imgs[position++].classList.remove('img--enable')
+    this.elements.imgs[position].classList.add('img--enable')
   }
 
   // galleryMovement () {
