@@ -62,7 +62,7 @@ export class Gallery {
     // console.log(minCont, maxCont)
     console.log(navegators)
     for (let i = 0; i < navegators.length; i++) {
-      navegators[i].addEventListener('click', this.changeImages)
+      navegators[i].addEventListener('click', this.changeImages.bind(this))
     }
   }
   changeImages (event) {
