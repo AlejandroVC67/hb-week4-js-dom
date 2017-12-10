@@ -11,7 +11,7 @@ export class Gallery {
     this.elements.arrows = this.instance.querySelectorAll('.arrow')
     this.elements.navegators = this.instance.querySelectorAll('[data-use]')
     this.controlArrows(this.elements.imgs, this.elements.arrows)
-    // console.log(this.elements.dots)
+    // this.instance.onkeydown = this.changeImages
     this.setGalleryMovement(this.elements.navegators)
   }
 
@@ -38,53 +38,89 @@ export class Gallery {
     })
     dotsContainer.innerHTML = dotsArray.join('')
     this.elements.dotBtn = this.instance.querySelectorAll('.dots__style')
-    console.log(this.elements.dotBtn)
     this.elements.dotBtn[0].classList.add('dots--selected')
   }
 
   controlArrows (imgs, arrows) {
-    const firstImage = imgs[0]
-    const lastImage = imgs[imgs.length - 1]
-    if (firstImage.classList.contains('img--enable')) {
+    if (this.cont >= 0 && this.cont < imgs.length - 1) {
       arrows[1].classList.add('arrow--enable')
-    } else if (lastImage.classList.contains('img--enable')) {
-      arrows[1].classList.remove('arrow--enable')
     } else {
+      arrows[1].classList.remove('arrow--enable')
+    }
+    if (this.cont > 0 && this.cont <= imgs.length - 1) {
       arrows[0].classList.add('arrow--enable')
-      arrows[1].classList.add('arrow--enable')
+    } else {
+      arrows[0].classList.remove('arrow--enable')
     }
   }
 
   setGalleryMovement (navegators) {
-    console.log(this.cont)
-    // const minCont = this.cont === 0
-    // const maxCont = this.cont === this.elements.imgs.length - 1
-    // console.log(minCont, maxCont)
-    console.log(navegators)
+    this.instance.addEventListener('keydown', this.changeImages.bind(this))
     for (let i = 0; i < navegators.length; i++) {
       navegators[i].addEventListener('click', this.changeImages.bind(this))
     }
   }
   changeImages (event) {
+    const maxCont = this.cont < this.elements.imgs.length - 1
+    const minCont = this.cont >= 0
     const element = event.currentTarget
+    const kbCode = event.keyCode
+    console.log(kbCode)
+    element.focus()
     if (element.classList.contains('arrows-container__left')) {
-      this.revealPreviousImage(this.cont)
+      if (this.cont <= this.elements.imgs.length - 1 && this.cont > 0) {
+        this.revealPreviousImage(this.cont)
+      }
     } else if (element.classList.contains('arrows-container__right')) {
-      console.log(this.cont)
+      if (minCont && maxCont) {
+        this.revealNextImage(this.cont)
+      }
+    } else if (element.classList.contains('dots__style')) {
+      const dotIndex = Array.from(this.elements.dotBtn).indexOf(element)
+      this.revealSpecificImage(dotIndex)
+    } else if (kbCode === 37) {
+      console.log('entre acá')
+      this.revealPreviousImage(this.cont)
+    } else if (kbCode === 39) {
+      console.log('entre acá 2')
       this.revealNextImage(this.cont)
-      this.cont++
     }
   }
 
   revealPreviousImage (newPosition) {
+    this.updateDotState('previous', newPosition)
     this.elements.imgs[newPosition].classList.remove('img--enable')
     this.elements.imgs[--newPosition].classList.add('img--enable')
     this.cont--
+    this.controlArrows(this.elements.imgs, this.elements.arrows)
   }
 
   revealNextImage (newPosition) {
+    this.updateDotState('next', newPosition)
     this.elements.imgs[newPosition].classList.remove('img--enable')
     this.elements.imgs[++newPosition].classList.add('img--enable')
-    // this.cont++
+    this.cont++
+    this.controlArrows(this.elements.imgs, this.elements.arrows)
+  }
+
+  revealSpecificImage (selectedPosition) {
+    this.updateDotState('specific', selectedPosition)
+    this.elements.imgs[this.cont].classList.remove('img--enable')
+    this.elements.imgs[selectedPosition].classList.add('img--enable')
+    this.cont = selectedPosition
+    this.controlArrows(this.elements.imgs, this.elements.arrows)
+  }
+
+  updateDotState (option, newPosition) {
+    if (option === 'next') {
+      this.elements.dotBtn[newPosition].classList.remove('dots--selected')
+      this.elements.dotBtn[++newPosition].classList.add('dots--selected')
+    } else if (option === 'previous') {
+      this.elements.dotBtn[newPosition].classList.remove('dots--selected')
+      this.elements.dotBtn[--newPosition].classList.add('dots--selected')
+    } else if (option === 'specific') {
+      this.elements.dotBtn[this.cont].classList.remove('dots--selected')
+      this.elements.dotBtn[newPosition].classList.add('dots--selected')
+    }
   }
 }
