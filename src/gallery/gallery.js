@@ -17,7 +17,7 @@ export class Gallery {
   static get contentStructure () {
     return {
       dot: ` <li class="dots"> <button data-use='navegation' class="dots__style"></button> </li>`,
-      imgs: `<img class="img" alt="a image of nature" src="{src}" ></img>`
+      imgs: `<li><img class="img" alt="a image of nature" src="{src}"/></li>`
     }
   }
 
