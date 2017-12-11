@@ -63,7 +63,7 @@ export class Gallery {
     const maxCont = this.cont < this.elements.imgs.length - 1
     const minCont = this.cont >= 0
     const element = event.currentTarget
-    const kbCode = event.keyCode
+    const kbCode = event.key
     console.log(kbCode)
     element.focus()
     if (element.classList.contains('arrows-container__left')) {
@@ -77,10 +77,10 @@ export class Gallery {
     } else if (element.classList.contains('dots__style')) {
       const dotIndex = Array.from(this.elements.dotBtn).indexOf(element)
       this.revealSpecificImage(dotIndex)
-    } else if (kbCode === 37) {
+    } else if (kbCode === 'ArrowLeft') {
       console.log('entre acá')
       this.revealPreviousImage(this.cont)
-    } else if (kbCode === 39) {
+    } else if (kbCode === 'ArrowRight') {
       console.log('entre acá 2')
       this.revealNextImage(this.cont)
     }
