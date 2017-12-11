@@ -11,7 +11,6 @@ export class Gallery {
     this.elements.arrows = this.instance.querySelectorAll('.arrow')
     this.elements.navegators = this.instance.querySelectorAll('[data-use]')
     this.controlArrows(this.elements.imgs, this.elements.arrows)
-    // this.instance.onkeydown = this.changeImages
     this.setGalleryMovement(this.elements.navegators)
   }
 
@@ -28,7 +27,6 @@ export class Gallery {
     })
     imgContainer.innerHTML = imgArray.join('')
     this.elements.imgs = this.instance.querySelectorAll('.img')
-    // console.log(this.elements.imgs)
     this.elements.imgs[0].classList.add('img--enable')
   }
 
@@ -60,6 +58,7 @@ export class Gallery {
       navegators[i].addEventListener('click', this.changeImages.bind(this))
     }
   }
+  
   changeImages (event) {
     const maxCont = this.cont < this.elements.imgs.length - 1
     const minCont = this.cont >= 0

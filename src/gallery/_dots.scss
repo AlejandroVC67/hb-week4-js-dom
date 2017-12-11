@@ -1,13 +1,15 @@
 .dots{
+	list-style-type: none;
 	&__style{
 		width: 10px;
 		height: 10px;
 		border: 10px;
 		margin-left: 10px;
-
+		cursor: pointer;
 	}
 	&--selected{
-		color:aquamarine;
+		color:red;
+		transform: scale(1.5)
 	}
 }
 
