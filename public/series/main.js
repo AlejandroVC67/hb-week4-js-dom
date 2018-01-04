@@ -9,9 +9,12 @@ seriesData.map(element => {
   }
 })
 /* eslint-disable */
-new Grid(document.querySelector('.series'), seriesData)
+var grid = new Grid(document.querySelector('.series'), seriesData)
 // new Categories(document.querySelector('.series-categories'), categories)
 /* eslint-enable */
 
-var a = new Categories(document.querySelector('.series-categories'), categories)
-a.setCategoriesAction(new Grid(document.querySelector('.series'), seriesData).updateGrid)
+var filter = new Categories(document.querySelector('.series-categories'), categories, grid)
+var categorieSelected = filter.setCategoriesAction(document.querySelectorAll('.categorie'))
+console.log(categorieSelected)
+// filter.setCategoriesAction(grid.updateGrid)
+// filter.updateSeries(grid.updateGrid)

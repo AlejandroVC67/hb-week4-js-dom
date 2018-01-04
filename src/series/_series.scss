@@ -62,7 +62,10 @@
 
 .grid-element{
 	position: relative;
-	perspective: 1000px;	
+	perspective: 1000px;
+	&--inactive{
+		display: none;
+	}
 }
 
 .flipper{

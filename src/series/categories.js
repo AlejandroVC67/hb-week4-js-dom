@@ -1,7 +1,9 @@
 export class Categories {
-  constructor (node, data) {
+  constructor (node, data, gridNode) {
     this.node = node
     this.data = data
+    this.gridNode = gridNode
+    // console.log(this.gridNode)
     this.elements = {}
     this.createCategories(this.node)
     this.elements.categories = this.node.querySelectorAll('.categorie')
@@ -10,7 +12,7 @@ export class Categories {
 
   static get contentStructure () {
     return {
-      dots: `<li class="dots" data-category="{cat}"><button class="categorie">{cat}</button></li>`
+      dots: `<li class="dots"><button class="categorie" data-category="{cat}">{cat}</button></li>`
     }
   }
 
@@ -21,9 +23,20 @@ export class Categories {
     section.innerHTML += categoriesArray.join('')
   }
 
-  setCategoriesAction (categories, updateGrid) {
+  setCategoriesAction (categories) {
+    // console.log(updateGrid)
     for (let i = 0; i < categories.length; i++) {
-      categories[i].addEventListener('click', updateGrid)
+      categories[i].addEventListener('click', function () {
+        // Actualizando los filtros
+        for (let i = 0; i < categories.length; i++) {
+          categories[i].classList.remove('categorie--selected')
+          if (categories[i].dataset.category === this.dataset.category) {
+            categories[i].classList.add('categorie--selected')
+            console.log(categories[i])
+            return categories[i]
+          }
+        }
+      })
     }
   }
 }

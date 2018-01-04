@@ -58,7 +58,6 @@ export class Gallery {
       navegators[i].addEventListener('click', this.changeImages.bind(this))
     }
   }
-  
   changeImages (event) {
     const maxCont = this.cont < this.elements.imgs.length - 1
     const minCont = this.cont >= 0
