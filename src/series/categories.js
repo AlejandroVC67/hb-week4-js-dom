@@ -38,13 +38,4 @@ export class Categories {
       this.onChange(this.currentFilter)
     }
   }
-
-          // for (let i = 0; i < categories.length; i++) {
-        //   categories[i].classList.remove('categorie--selected')
-        //   if (categories[i].dataset.category === this.dataset.category) {
-        //     categories[i].classList.add('categorie--selected')
-        //     console.log(categories[i])
-        //     return categories[i]
-        //   }
-        // }
 }
