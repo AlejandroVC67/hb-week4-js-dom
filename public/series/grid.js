@@ -6,7 +6,7 @@ export class Grid {
     this.elements.grid = this.node.querySelector('.grid')
     this.createGridElement(this.elements.grid)
     this.elements.gridElements = this.node.querySelectorAll('.grid-element')
-    this.updateGrid('All')
+    this.showAllCategories(this.elements.gridElements, 'All')
   }
 
   static get contentStructure () {
@@ -27,36 +27,28 @@ export class Grid {
     grid.innerHTML = seriesArray.join('')
   }
 
-  updateGrid (inputDeCategorie) {
-    if (inputDeCategorie === 'All') {
-      this.showAllCategories(this.elements.gridElements)
+  updateGrid (categorieSelected) {
+    console.log(categorieSelected)
+    if (categorieSelected === 'All') {
+      this.showAllCategories(this.elements.gridElements, categorieSelected)
     } else {
-      this.showSpecificCategorie(inputDeCategorie, this.elements.gridElements)
+      this.showSpecificCategorie(categorieSelected, this.elements.gridElements)
     }
   }
 
-  showAllCategories (allCategories) {
-    for (let i = 0; i < allCategories.length; i++) {
-      allCategories[i].classList.remove('grid-element--inactive')
+  showAllCategories (gridElements, categorieSelected) {
+    for (let i = 0; i < gridElements.length; i++) {
+      gridElements[i].classList.add('grid-element--active')
     }
   }
 
-  showSpecificCategorie (categoriaAMostrar, todosLosGridElements) {
-    for (let i = 0; i < todosLosGridElements.length; i++) {
-      if (todosLosGridElements[i].dataset.category !== categoriaAMostrar) {
-        todosLosGridElements[i].classList.add('grid-element--inactive')
+  showSpecificCategorie (categorieSelected, gridElements) {
+    for (let i = 0; i < gridElements.length; i++) {
+      if (gridElements[i].dataset.category !== categorieSelected) {
+        gridElements[i].classList.remove('grid-element--active')
+      } else {
+        gridElements[i].classList.add('grid-element--active')
       }
     }
   }
-
-//   identifiedCategories () {
-//     let categories = []
-//     this.data.map(element => {
-//       if (!categories.includes(element.category)) {
-//         categories.push(element.category)
-//       }
-//     })
-//     console.log(categories)
-//     return categories
-//   }
 }

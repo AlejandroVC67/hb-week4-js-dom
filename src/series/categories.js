@@ -1,10 +1,10 @@
 export class Categories {
-  constructor (node, data, gridNode) {
+  constructor (node, data, callback) {
     this.node = node
     this.data = data
-    this.gridNode = gridNode
-    // console.log(this.gridNode)
+    this.onChange = callback
     this.elements = {}
+    this.currentFilter = 'All'
     this.createCategories(this.node)
     this.elements.categories = this.node.querySelectorAll('.categorie')
     this.setCategoriesAction(this.elements.categories)
@@ -26,17 +26,25 @@ export class Categories {
   setCategoriesAction (categories) {
     // console.log(updateGrid)
     for (let i = 0; i < categories.length; i++) {
-      categories[i].addEventListener('click', function () {
-        // Actualizando los filtros
-        for (let i = 0; i < categories.length; i++) {
-          categories[i].classList.remove('categorie--selected')
-          if (categories[i].dataset.category === this.dataset.category) {
-            categories[i].classList.add('categorie--selected')
-            console.log(categories[i])
-            return categories[i]
-          }
-        }
-      })
+      categories[i].addEventListener('click', this.getClickedElement.bind(this))
     }
   }
+  getClickedElement (event) {
+    if (event.currentTarget !== this.currentFilter) {
+      this.node.querySelector('.categorie--selected').classList.remove('categorie--selected')
+      console.log(this.node)
+      event.currentTarget.classList.add('categorie--selected')
+      this.currentFilter = event.currentTarget.dataset.category
+      this.onChange(this.currentFilter)
+    }
+  }
+
+          // for (let i = 0; i < categories.length; i++) {
+        //   categories[i].classList.remove('categorie--selected')
+        //   if (categories[i].dataset.category === this.dataset.category) {
+        //     categories[i].classList.add('categorie--selected')
+        //     console.log(categories[i])
+        //     return categories[i]
+        //   }
+        // }
 }

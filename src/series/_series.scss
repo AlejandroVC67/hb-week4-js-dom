@@ -63,8 +63,9 @@
 .grid-element{
 	position: relative;
 	perspective: 1000px;
-	&--inactive{
-		display: none;
+	display: none;
+	&--active{
+		display: unset;
 	}
 }
 
