@@ -11,7 +11,7 @@
 	align-items: center;
 	justify-content: center;
 	&__list__element {
-		margin-left: 30px;
+		margin-left: 25px;
 		border-radius: 8px;
 		font-size: 20px;
 		color: white;
@@ -49,18 +49,23 @@
 	}
 }
 
-.serie__image{
-	object-fit: cover;
-	width: 100%;
-	height: 100%;
-
-}	
-
 .serie{
 	transition: transform 0.6s;
 	transform-style: preserve-3d;
 	width: 100%;
 	height: 100%;
+	&__image{
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+	&__back  {
+		transform: rotateY( 180deg );
+		display:flex;
+		flex-wrap:wrap;
+		justify-content: center;
+		background-color: black;
+	}
 	&__information{
 		font-size: 15px;
 		color:white;
@@ -89,21 +94,12 @@
 		transform: rotateY(180deg);
 		
 	}
-	position: absolute;
 	& > figure {
-		margin: 0;
-		display: block;
 		position: absolute;
 		width: 100%;
 		height: 100%;
 		backface-visibility: hidden;
 	}
-	&__back  {
-		transform: rotateY( 180deg );
-		display:flex;
-		flex-wrap:wrap;
-		justify-content: center;
-		background-color: black;
-	}
+
 }
 
