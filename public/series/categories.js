@@ -6,13 +6,13 @@ export class Categories {
     this.elements = {}
     this.currentFilter = 'All'
     this.createCategories(this.node)
-    this.elements.categories = this.node.querySelectorAll('.categorie')
+    this.elements.categories = this.node.querySelectorAll('.filter__list__element')
     this.setCategoriesAction(this.elements.categories)
   }
 
   static get contentStructure () {
     return {
-      dots: `<li class="dots"><button class="categorie" data-category="{cat}">{cat}</button></li>`
+      dots: `<li class="dots"><button class="filter__list__element" data-category="{cat}">{cat}</button></li>`
     }
   }
 
@@ -31,9 +31,8 @@ export class Categories {
   }
   getClickedElement (event) {
     if (event.currentTarget !== this.currentFilter) {
-      this.node.querySelector('.categorie--selected').classList.remove('categorie--selected')
-      console.log(this.node)
-      event.currentTarget.classList.add('categorie--selected')
+      this.node.querySelector('.filter__list__element--selected').classList.remove('filter__list__element--selected')
+      event.currentTarget.classList.add('filter__list__element--selected')
       this.currentFilter = event.currentTarget.dataset.category
       this.onChange(this.currentFilter)
     }

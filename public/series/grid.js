@@ -3,29 +3,28 @@ export class Grid {
     this.node = node
     this.data = data
     this.elements = {}
-    this.elements.grid = this.node.querySelector('.grid')
-    this.createGridElement(this.elements.grid)
-    this.elements.gridElements = this.node.querySelectorAll('.grid-element')
+    this.elements.spot = this.node.querySelector('.grid')
+    this.createGridElement(this.elements.spot)
+    this.elements.gridElements = this.node.querySelectorAll('.grid__element')
     this.showAllCategories(this.elements.gridElements, 'All')
-    this.elements.flippers = this.node.querySelectorAll('.flipper')
-    this.elements.movieInformation = this.node.querySelectorAll('.serie-information')
-    console.log(this.elements.movieInformation)
-    this.setGridMovement(this.elements.gridElements, this.elements.flippers, this.elements.movieInformation)
+    this.elements.series = this.node.querySelectorAll('.serie')
+    this.elements.serieInformation = this.node.querySelectorAll('.serie__information-container')
+    this.setGridMovement(this.elements.gridElements, this.elements.series, this.elements.serieInformation)
   }
 
   static get contentStructure () {
     return {
-      gridElement: (`<div class="grid-element" data-category="{cat}">
-                        <div class="flipper">
-                          <figure class="front">
-                            <img class="serie" src="{src}" alt=""/>
-                            <div class="serie-information">
-                              <p class="information">"{title}"</p>
+      gridElement: (`<div class="grid__element" data-category="{cat}">
+                        <div class="serie">
+                          <figure class="serie__front">
+                            <img class="serie__image" src="{src}" alt=""/>
+                            <div class="serie__information-container">
+                              <p class="serie__information">"{title}"</p>
                             </div>
                           </figure>
-                          <figure class="back">
-                            <p class="back__elements">Description: {content}</p>
-                            <p class="back__elements">Year: {year}</p>                            
+                          <figure class="serie__back">
+                            <p class="serie__information">Description: {content}</p>
+                            <p class="serie__information">Year: {year}</p>                            
                           </figure>
                         </div>
                       </div>`)
@@ -39,40 +38,40 @@ export class Grid {
     grid.innerHTML = seriesArray.join('')
   }
 
-  updateGrid (categorieSelected) {
-    if (categorieSelected === 'All') {
+  updateGrid (categorySelected) {
+    if (categorySelected === 'All') {
       this.showAllCategories(this.elements.gridElements)
     } else {
-      this.showSpecificCategorie(categorieSelected, this.elements.gridElements)
+      this.showSpecificCategory(categorySelected, this.elements.gridElements)
     }
   }
 
   showAllCategories (gridElements) {
     gridElements.forEach(function (element) {
-      element.classList.add('grid-element--active')
+      element.classList.add('grid__element--active')
     })
   }
 
-  showSpecificCategorie (categorieSelected, gridElements) {
+  showSpecificCategory (categorySelected, gridElements) {
     for (let i = 0; i < gridElements.length; i++) {
-      if (gridElements[i].dataset.category !== categorieSelected) {
-        gridElements[i].classList.remove('grid-element--active')
+      if (gridElements[i].dataset.category !== categorySelected) {
+        gridElements[i].classList.remove('grid__element--active')
       } else {
-        gridElements[i].classList.add('grid-element--active')
+        gridElements[i].classList.add('grid__element--active')
       }
     }
   }
 
   setGridMovement (gridElements, movieFlipper, frontDescription) {
-    console.log(movieFlipper)
+    console.log(this.node.querySelectorAll('.serie--flipped'))
     for (let i = 0; i < gridElements.length; i++) {
       gridElements[i].addEventListener('click', function () {
-        if (movieFlipper[i].classList.contains('flipped')) {
-          movieFlipper[i].classList.remove('flipped')
-          frontDescription[i].classList.remove('serie-information--disable')
+        if (movieFlipper[i].classList.contains('serie--flipped')) {
+          movieFlipper[i].classList.remove('serie--flipped')
+          frontDescription[i].classList.remove('serie__information-container--disable')
         } else {
-          movieFlipper[i].classList.add('flipped')
-          frontDescription[i].classList.add('serie-information--disable')
+          movieFlipper[i].classList.add('serie--flipped')
+          frontDescription[i].classList.add('serie__information-container--disable')
         }
       })
     }

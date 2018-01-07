@@ -40,5 +40,26 @@ export default [
     category: 'Comedy',
     year: '2006',
     description: 'Liz Lemos is head writter and showrunner of the NBC sketch comedy series TGS'
+  },
+  {
+    title: 'Black Mirror',
+    url: 'http://activacomunicacion.com.ar/wp-content/uploads/2017/11/bm.png',
+    category: 'Drama',
+    year: '2011',
+    description: 'Black Mirror is British science fiction anthology television series created by Charlie Brooker, it examines modern society particularly with regard to the unanticiped consequences of new technologies'
+  },
+  {
+    title: 'Westworld',
+    url: 'https://hdwallsource.com/img/2016/1/westworld-logo-wallpaper-58704-60478-hd-wallpapers.jpg',
+    category: 'Drama',
+    year: '2014',
+    description: 'Westworld is an American science fiction western thriller television series created by Jonathan Nolan and Lisa Joy for HBO'
+  },
+  {
+    title: 'The Addams Family',
+    url: 'https://s-i.huffpost.com/gen/1475552/images/o-ADDAMS-FAMILY-JOHN-ASTIN-facebook.jpg',
+    category: 'Comedy',
+    year: '1964',
+    description: 'The addams family is an American television series based on the characters in Charles Addams New Yorker cartoons'
   }
 ]
