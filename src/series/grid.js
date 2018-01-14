@@ -9,7 +9,9 @@ export class Grid {
     this.showAllCategories(this.elements.gridElements, 'All')
     this.elements.series = this.node.querySelectorAll('.serie')
     this.elements.serieInformation = this.node.querySelectorAll('.serie__information-container')
-    this.setGridMovement(this.elements.gridElements, this.elements.series, this.elements.serieInformation)
+    // this.setGridMovement(this.elements.gridElements, this.elements.series, this.elements.serieInformation)
+    this.elements.currentSerie = ''
+    this.setGridAction()
   }
 
   static get contentStructure () {
@@ -53,17 +55,16 @@ export class Grid {
   }
 
   showSpecificCategory (categorySelected, gridElements) {
-    for (let i = 0; i < gridElements.length; i++) {
-      if (gridElements[i].dataset.category !== categorySelected) {
-        gridElements[i].classList.remove('grid__element--active')
+    gridElements.forEach(element => {
+      if (element.dataset.category !== categorySelected) {
+        element.classList.remove('grid__element--active')
       } else {
-        gridElements[i].classList.add('grid__element--active')
+        element.classList.add('grid__element--active')
       }
-    }
+    })
   }
 
   setGridMovement (gridElements, movieFlipper, frontDescription) {
-    console.log(this.node.querySelectorAll('.serie--flipped'))
     for (let i = 0; i < gridElements.length; i++) {
       gridElements[i].addEventListener('click', function () {
         if (movieFlipper[i].classList.contains('serie--flipped')) {
@@ -71,9 +72,29 @@ export class Grid {
           frontDescription[i].classList.remove('serie__information-container--disable')
         } else {
           movieFlipper[i].classList.add('serie--flipped')
-          frontDescription[i].classList.add('serie__information-container--disable')
+          // frontDescription[i].classList.add('serie__information-container--disable')
         }
       })
+    }
+  }
+
+  setGridAction () {
+    this.elements.gridElements.forEach(element => {
+      element.addEventListener('click', this.flipCard.bind(this))
+    })
+  }
+
+  flipCard (event) {
+    let serieSelected = event.currentTarget
+    if (this.elements.currentSerie === '') {
+      this.elements.currentSerie = serieSelected
+    }
+    if (serieSelected === this.elements.currentSerie) {
+      this.elements.currentSerie.children[0].classList.toggle('serie--flipped')
+    } else {
+      this.elements.currentSerie.children[0].classList.remove('serie--flipped')
+      this.elements.currentSerie = serieSelected
+      this.elements.currentSerie.children[0].classList.add('serie--flipped')
     }
   }
 }

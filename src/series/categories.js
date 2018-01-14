@@ -24,10 +24,9 @@ export class Categories {
   }
 
   setCategoriesAction (categories) {
-    // console.log(updateGrid)
-    for (let i = 0; i < categories.length; i++) {
-      categories[i].addEventListener('click', this.getClickedElement.bind(this))
-    }
+    categories.forEach(element => {
+      element.addEventListener('click', this.getClickedElement.bind(this))
+    })
   }
   getClickedElement (event) {
     if (event.currentTarget !== this.currentFilter) {
