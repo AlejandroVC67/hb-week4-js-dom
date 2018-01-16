@@ -13,7 +13,7 @@ function onChange (currentCategory) {
 }
 
 /* eslint-disable */
-let filter = new Categories(document.querySelector('.filter__list'), categories, onChange)
-let grid = new Grid(document.querySelector('.series'), seriesData)
+const filter = new Categories(document.querySelector('.filter__list'), categories, onChange)
+const grid = new Grid(document.querySelector('.series'), seriesData)
 // new Categories(document.querySelector('.series-categories'), categories)
 /* eslint-enable */

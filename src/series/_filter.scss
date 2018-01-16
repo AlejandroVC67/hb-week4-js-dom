@@ -4,16 +4,22 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	&__list__element {
-		margin-left: 10px;
-		border-radius: 8px;
-		font-size: 20px;
-		color: white;
-		background-color: orange;
-		width: 100px;
-		&--selected {
-			color: black;
-			font-weight: bold;
+	&__list{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		&__element{
+			margin-left: 10px;
+			border-radius: 8px;
+			font-size: 20px;
+			color: white;
+			background-color: orange;
+			width: 100px;
+			cursor: pointer;
+			&--selected {
+				color: black;
+				font-weight: bold;
+			}
 		}
 	}
 }
