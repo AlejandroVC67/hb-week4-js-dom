@@ -17,7 +17,7 @@ export class Categories {
   }
 
   createCategories (section) {
-    let categoriesArray = this.data.map(element => {
+    const categoriesArray = this.data.map(element => {
       return Categories.contentStructure.dots.replace('{cat}', element).replace('{cat}', element)
     })
     section.innerHTML += categoriesArray.join('')
