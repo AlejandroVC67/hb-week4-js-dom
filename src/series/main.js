@@ -4,7 +4,12 @@ import { Grid } from './grid.js'
 import DataRetriever from './DataRetriever.js'
 
 const categories = []
-seriesData.map(element => {
+// seriesData.map(element => {
+//   if (!categories.includes(element.category)) {
+//     categories.push(element.category)
+//   }
+// })
+seriesData.forEach(element => {
   if (!categories.includes(element.category)) {
     categories.push(element.category)
   }
