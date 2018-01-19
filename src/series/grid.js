@@ -9,7 +9,7 @@ export class Grid {
     this.showAllCategories(this.elements.gridElements, 'All')
     this.elements.series = this.node.querySelectorAll('.serie')
     this.elements.serieInformation = this.node.querySelectorAll('.serie__information-container')
-    this.elements.currentSerie = null
+    this.elements.currentSerie = ''
     this.setGridAction()
   }
 
@@ -32,21 +32,9 @@ export class Grid {
     }
   }
 
-  static get states () {
-    return {
-      serieFlipped : (`serie--flipped`),
-      gridElementActive : (`grid__element--active`),
-    }
-  }
-
   createGridElement (grid) {
-    const seriesArray = this.data.map(element => {
-      return Grid.contentStructure.gridElement
-      .replace('{src}', element.url)
-      .replace('{title}', element.title)
-      .replace('{cat}', element.category)
-      .replace('{content}', element.description)
-      .replace('{year}', element.year)
+    let seriesArray = this.data.map(element => {
+      return Grid.contentStructure.gridElement.replace('{src}', element.url).replace('{title}', element.title).replace('{cat}', element.category).replace('{content}', element.description).replace('{year}', element.year)
     })
     grid.innerHTML = seriesArray.join('')
   }
@@ -61,18 +49,32 @@ export class Grid {
 
   showAllCategories (gridElements) {
     gridElements.forEach(function (element) {
-      element.classList.add(Grid.states.gridElementActive)
+      element.classList.add('grid__element--active')
     })
   }
 
   showSpecificCategory (categorySelected, gridElements) {
     gridElements.forEach(element => {
       if (element.dataset.category !== categorySelected) {
-        element.classList.remove(Grid.states.gridElementActive)
+        element.classList.remove('grid__element--active')
       } else {
-        element.classList.add(Grid.states.gridElementActive)
+        element.classList.add('grid__element--active')
       }
     })
+  }
+
+  setGridMovement (gridElements, movieFlipper, frontDescription) {
+    for (let i = 0; i < gridElements.length; i++) {
+      gridElements[i].addEventListener('click', function () {
+        if (movieFlipper[i].classList.contains('serie--flipped')) {
+          movieFlipper[i].classList.remove('serie--flipped')
+          frontDescription[i].classList.remove('serie__information-container--disable')
+        } else {
+          movieFlipper[i].classList.add('serie--flipped')
+          // frontDescription[i].classList.add('serie__information-container--disable')
+        }
+      })
+    }
   }
 
   setGridAction () {
@@ -82,16 +84,16 @@ export class Grid {
   }
 
   flipCard (event) {
-    const serieSelected = event.currentTarget
-    if (this.elements.currentSerie === null) {
+    let serieSelected = event.currentTarget
+    if (this.elements.currentSerie === '') {
       this.elements.currentSerie = serieSelected
     }
     if (serieSelected === this.elements.currentSerie) {
-      this.elements.currentSerie.children[0].classList.toggle(Grid.states.serieFlipped)
+      this.elements.currentSerie.children[0].classList.toggle('serie--flipped')
     } else {
-      this.elements.currentSerie.children[0].classList.remove(Grid.states.serieFlipped)
+      this.elements.currentSerie.children[0].classList.remove('serie--flipped')
       this.elements.currentSerie = serieSelected
-      this.elements.currentSerie.children[0].classList.add(Grid.states.serieFlipped)
+      this.elements.currentSerie.children[0].classList.add('serie--flipped')
     }
   }
 }
