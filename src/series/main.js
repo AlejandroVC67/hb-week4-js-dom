@@ -21,7 +21,7 @@ DataRetriever.get(URL, (data) => {
   function onChange (currentCategory) {
     grid.updateGrid(currentCategory)
   }
-  const filter = new Categories(document.querySelector('.filter__list'), categories, onChange)
+  new Categories(document.querySelector('.filter__list'), categories, onChange)
 })
 
 /* eslint-disable */
