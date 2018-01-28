@@ -1,11 +1,10 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
-const webpack = require('webpack')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  entry: ['./src/series/main.js', './src/main.scss'],
+  entry: './src/series/main.js',
   devtool: 'inline-source-map',
   output: {
     path: path.resolve(__dirname, 'public'),
@@ -17,10 +16,16 @@ module.exports = {
       /*
       your other rules for JavaScript transpiling go in here
       */
-      { // sass / scss loader for webpack
-        test: /\.(sass|scss)$/,
-        loader: ExtractTextPlugin.extract(['css-loader', 'sass-loader'])
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          use: [
+            'css-loader',
+            'sass-loader?sourceMap'
+          ]
+        })
       }
+
     ]
   },
   plugins: [
@@ -32,9 +37,9 @@ module.exports = {
         comments: false
       }
     }),
-    new ExtractTextPlugin("styles.css"),
+    new ExtractTextPlugin('styles.css'),
     new HtmlWebpackPlugin({
       template: './src/series/index.html'
     })
-  ],
-};
+  ]
+}

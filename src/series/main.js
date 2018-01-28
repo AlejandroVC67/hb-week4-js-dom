@@ -2,6 +2,7 @@ import seriesData from './seriesSource.js'
 import { Categories } from './categories.js'
 import { Grid } from './grid.js'
 import DataRetriever from './DataRetriever.js'
+import main from '../main.scss'
 
 const categories = []
 // seriesData.map(element => {
